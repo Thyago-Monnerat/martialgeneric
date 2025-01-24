@@ -1,19 +1,14 @@
 package com.generic.MartialManager.services;
 
-import com.generic.MartialManager.Exceptions.FieldNotFoundException;
-import com.generic.MartialManager.Exceptions.NotAcceptableException;
 import com.generic.MartialManager.Exceptions.StudentNotFoundException;
 import com.generic.MartialManager.dtos.StudentCreateDTO;
 import com.generic.MartialManager.dtos.StudentDTO;
-import com.generic.MartialManager.dtos.StudentUpdateDTO;
 import com.generic.MartialManager.models.StudentModel;
 import com.generic.MartialManager.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Field;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,42 +20,21 @@ public class StudentService {
 
     @Transactional(readOnly = true)
     public StudentDTO get(long id) {
-        Optional<StudentModel> student = studentRepository.findById(id);
+        StudentModel student = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Aluno não encontrado!"));
 
-        if (student.isPresent()) {
-            return new StudentDTO(
-                    student.get().getName(),
-                    student.get().getAge(),
-                    student.get().getBelt(),
-                    student.get().getEmail(),
-                    student.get().getPhoneNumber(),
-                    student.get().getInitialDate()
-            );
-        } else {
-            throw new StudentNotFoundException("Aluno não encontrado!");
-        }
+        return new StudentDTO(student);
     }
 
     @Transactional
-    public Optional<StudentModel> getStudentModelById(long id) {
-        return studentRepository.findById(id);
+    public StudentModel getStudentModelById(long id) {
+        return studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Aluno não encontrado!"));
     }
 
     @Transactional(readOnly = true)
-    public List<StudentCreateDTO> getAll() {
+    public List<StudentDTO> getAll() {
         List<StudentModel> studentList = studentRepository.findAll();
 
-        return studentList.stream()
-                .map(student -> new StudentCreateDTO(
-                        student.getId(),
-                        student.getName(),
-                        student.getAge(),
-                        student.getBelt(),
-                        student.getEmail(),
-                        student.getPhoneNumber(),
-                        student.getInitialDate()
-                ))
-                .toList();
+        return studentList.stream().map(StudentDTO::new).toList();
     }
 
     @Transactional
@@ -71,39 +45,26 @@ public class StudentService {
     }
 
     @Transactional
-    public void updateStudent(long id, StudentUpdateDTO studentUpdateDTO) {
+    public String updateStudent(StudentDTO studentDTO) {
 
-        Optional<StudentModel> student = studentRepository.findById(id);
+        StudentModel student = studentRepository.findById(studentDTO.getId()).orElseThrow(() -> new StudentNotFoundException("Aluno não encontrado"));
 
-        if (student.isPresent()) {
-            try {
-                StudentModel studentModel = student.get();
-                Field field = StudentModel.class.getDeclaredField(studentUpdateDTO.fieldName());
+        student.setId(studentDTO.getId());
+        student.setName(studentDTO.getName());
+        student.setAge(studentDTO.getAge());
+        student.setEmail(studentDTO.getEmail());
+        student.setPhoneNumber(studentDTO.getPhoneNumber());
+        student.setInitialDate(studentDTO.getInitialDate());
 
-                field.setAccessible(true);
-
-                if (field.getType().equals(String.class)) {
-                    field.set(studentModel, studentUpdateDTO.newValue());
-                } else if (field.getType().equals(int.class)) {
-                    field.setInt(studentModel, Integer.parseInt(studentUpdateDTO.newValue()));
-                } else if (field.getType().equals(LocalDate.class)) {
-                    field.set(studentModel, LocalDate.parse(studentUpdateDTO.newValue()));
-                }
-                studentRepository.save(studentModel);
-            } catch (NoSuchFieldException e) {
-                throw new FieldNotFoundException("Campo não encontrado");
-            } catch (IllegalAccessException e) {
-                throw new NotAcceptableException("Acesso ilegal");
-            }
-        }else{
-            throw new StudentNotFoundException("Aluno não encontrado!");
-        }
+        return "Aluno " + student.getName() + " atualizado!";
     }
 
     @Transactional
     public String delete(long id) {
-        studentRepository.deleteById(id);
+        StudentModel student = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Aluno não encontrado!"));
 
-        return "Deletado!";
+        studentRepository.delete(student);
+
+        return "Aluno " + student.getName() + " deletado!";
     }
 }

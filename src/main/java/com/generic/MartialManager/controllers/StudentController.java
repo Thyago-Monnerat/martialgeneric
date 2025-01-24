@@ -2,7 +2,6 @@ package com.generic.MartialManager.controllers;
 
 import com.generic.MartialManager.dtos.StudentCreateDTO;
 import com.generic.MartialManager.dtos.StudentDTO;
-import com.generic.MartialManager.dtos.StudentUpdateDTO;
 import com.generic.MartialManager.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +23,9 @@ public class StudentController {
     }
 
     @GetMapping("getAll")
-    public ResponseEntity<List<StudentCreateDTO>> getStudents() {
+    public ResponseEntity<List<StudentDTO>> getStudents() {
         return ResponseEntity.ok(studentService.getAll());
     }
-
 
     @PostMapping("create")
     public ResponseEntity<StudentCreateDTO> createStudent(@RequestBody StudentCreateDTO studentCreateDTO) {
@@ -39,10 +37,9 @@ public class StudentController {
         return ResponseEntity.ok(studentService.delete(id));
     }
 
-    @PatchMapping("update/{id}")
-    public ResponseEntity<String> updateStudent(@PathVariable long id, @RequestBody StudentUpdateDTO studentUpdateDTO)  {
-        studentService.updateStudent(id, studentUpdateDTO);
-        return ResponseEntity.ok("Updated!");
+    @PatchMapping("update")
+    public ResponseEntity<String> updateStudent(@RequestBody StudentDTO studentDTO) {
+        return ResponseEntity.ok(studentService.updateStudent(studentDTO));
     }
 
 }

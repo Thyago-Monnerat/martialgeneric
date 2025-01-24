@@ -18,14 +18,4 @@ public class StudentEventService {
     @Autowired
     private StudentService studentService;
 
-    @Transactional
-    public void deleteByStudentId(long id) {
-        Optional<StudentModel> studentModel = studentService.getStudentModelById(id);
-
-        if (studentModel.isPresent()) {
-            studentEventRepository.deleteByStudentId(id);
-        }else{
-            throw new StudentNotFoundException("Aluno não encontrado!");
-        }
-    }
 }

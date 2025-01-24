@@ -1,6 +1,5 @@
 package com.generic.MartialManager.ExceptionsHandler;
 
-import com.generic.MartialManager.Exceptions.FieldNotFoundException;
 import com.generic.MartialManager.Exceptions.StudentNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,17 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionsHandler {
 
     @ExceptionHandler(StudentNotFoundException.class)
-    public ResponseEntity<String> studentNotFoundException(StudentNotFoundException e){
+    public ResponseEntity<String> studentNotFoundException(StudentNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
     @ExceptionHandler(NumberFormatException.class)
-    public ResponseEntity<String> NumberFormatException(){
+    public ResponseEntity<String> NumberFormatException() {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Formato do campo inválido!");
     }
 
-    @ExceptionHandler(FieldNotFoundException.class)
-    public ResponseEntity<String> FieldNotFoundException(FieldNotFoundException e){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-    }
 }
