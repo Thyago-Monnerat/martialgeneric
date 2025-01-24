@@ -24,5 +24,4 @@ public class EventModel {
 
     private LocalDateTime hours;
 
-
 }

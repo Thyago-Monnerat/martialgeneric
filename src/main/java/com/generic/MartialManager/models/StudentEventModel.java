@@ -6,6 +6,7 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.ManyToOne;
 
 
+
 @Data
 @Entity
 @Table(name = "tb_student_event")
@@ -13,6 +14,14 @@ public class StudentEventModel {
 
     @EmbeddedId
     private StudentEventPKModel id = new StudentEventPKModel();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private StudentModel student;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "event_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private EventModel event;
 
     public StudentEventModel() {
     }
@@ -28,9 +37,9 @@ public class StudentEventModel {
 @Data
 class StudentEventPKModel {
 
-    @ManyToOne
+    @ManyToOne()
     private StudentModel student;
-    @ManyToOne
+    @ManyToOne()
     private EventModel event;
 
     public StudentEventPKModel(){}
