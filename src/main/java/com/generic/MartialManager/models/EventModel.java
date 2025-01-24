@@ -3,7 +3,7 @@ package com.generic.MartialManager.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @Entity
@@ -14,6 +14,7 @@ public class EventModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(unique = true)
     private String title;
 
     private String date;
@@ -22,6 +23,6 @@ public class EventModel {
 
     private String local;
 
-    private LocalDateTime hours;
+    private LocalTime hours;
 
 }
