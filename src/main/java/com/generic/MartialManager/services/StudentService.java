@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -23,11 +22,6 @@ public class StudentService {
         StudentModel student = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Aluno não encontrado!"));
 
         return new StudentDTO(student);
-    }
-
-    @Transactional
-    public StudentModel getStudentModelById(long id) {
-        return studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Aluno não encontrado!"));
     }
 
     @Transactional(readOnly = true)
