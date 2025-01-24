@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.generic.MartialManager.utils.CheckName.nameValidator;
 
 @Service
 public class StudentService {
@@ -33,6 +34,8 @@ public class StudentService {
 
     @Transactional
     public StudentCreateDTO add(StudentCreateDTO studentCreateDTO) {
+        nameValidator(studentCreateDTO.name());
+
         studentRepository.save(new StudentModel(studentCreateDTO));
 
         return studentCreateDTO;
@@ -42,6 +45,8 @@ public class StudentService {
     public String updateStudent(StudentDTO studentDTO) {
 
         StudentModel student = studentRepository.findById(studentDTO.getId()).orElseThrow(() -> new StudentNotFoundException("Aluno não encontrado"));
+
+        nameValidator(studentDTO.getName());
 
         student.setId(studentDTO.getId());
         student.setName(studentDTO.getName());
