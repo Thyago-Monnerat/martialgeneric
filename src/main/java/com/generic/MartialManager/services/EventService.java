@@ -34,7 +34,7 @@ public class EventService {
     }
 
     @Transactional
-    public String createEvent(EventCreateDTO eventCreateDTO){
+    public String createEvent(EventCreateDTO eventCreateDTO) {
         nameValidator(eventCreateDTO.getTitle());
 
         EventModel event = new EventModel(eventCreateDTO);
@@ -42,6 +42,21 @@ public class EventService {
         eventRepository.save(event);
 
         return "Evento: " + event.getTitle() + " salvo com sucesso!";
+    }
+
+    @Transactional
+    public String updateEvent(EventDTO eventDTO) {
+        nameValidator(eventDTO.getTitle());
+
+        EventModel eventModel = eventRepository.findById(eventDTO.getId()).orElseThrow(() -> new EventNotFoundException("Evento não encontrado!"));
+
+        eventModel.setTitle(eventDTO.getTitle());
+        eventModel.setDescription(eventDTO.getDescription());
+        eventModel.setDate(eventDTO.getDate());
+        eventModel.setHours(eventDTO.getHours());
+        eventModel.setLocal(eventDTO.getLocal());
+
+        return "Evento " + eventModel.getTitle()  + " Salvo com sucesso!";
     }
 
 }

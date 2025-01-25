@@ -30,4 +30,9 @@ public class EventController {
     public ResponseEntity<String> createEvent(@RequestBody EventCreateDTO eventCreateDTO) {
         return ResponseEntity.ok(eventService.createEvent(eventCreateDTO));
     }
+
+    @PatchMapping("update")
+    public ResponseEntity<String> updateEvent(@RequestBody EventDTO eventDTO) {
+        return ResponseEntity.ok(eventService.updateEvent(eventDTO));
+    }
 }
