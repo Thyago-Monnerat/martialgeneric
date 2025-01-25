@@ -1,4 +1,4 @@
-package com.generic.MartialManager.Exceptions;
+package com.generic.MartialManager.exceptions;
 
 public class StudentNotFoundException extends RuntimeException {
     public StudentNotFoundException(String message) {

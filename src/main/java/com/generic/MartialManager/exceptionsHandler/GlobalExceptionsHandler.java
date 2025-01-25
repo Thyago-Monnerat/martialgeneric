@@ -1,8 +1,9 @@
-package com.generic.MartialManager.ExceptionsHandler;
+package com.generic.MartialManager.exceptionsHandler;
 
-import com.generic.MartialManager.Exceptions.EventNotFoundException;
-import com.generic.MartialManager.Exceptions.InvalidNameFormatException;
-import com.generic.MartialManager.Exceptions.StudentNotFoundException;
+import com.generic.MartialManager.exceptions.EventNotFoundException;
+import com.generic.MartialManager.exceptions.InvalidNameFormatException;
+import com.generic.MartialManager.exceptions.NameAlreadyExistsException;
+import com.generic.MartialManager.exceptions.StudentNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,5 +43,10 @@ public class GlobalExceptionsHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<String> MethodArgumentTypeMismatchException(){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tipo de dado inválido. Verifique sua requisição");
+    }
+
+    @ExceptionHandler(NameAlreadyExistsException.class)
+    public ResponseEntity<String> NameAlreadyExistsException(NameAlreadyExistsException e){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
     }
 }

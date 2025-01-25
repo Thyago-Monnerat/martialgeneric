@@ -19,22 +19,22 @@ public class StudentController {
 
     @GetMapping("get/{id}")
     public ResponseEntity<StudentDTO> getStudent(@PathVariable long id) {
-        return ResponseEntity.ok(studentService.get(id));
+        return ResponseEntity.ok(studentService.getStudent(id));
     }
 
     @GetMapping("getAll")
     public ResponseEntity<List<StudentDTO>> getStudents() {
-        return ResponseEntity.ok(studentService.getAll());
+        return ResponseEntity.ok(studentService.getStudents());
     }
 
     @PostMapping("create")
     public ResponseEntity<StudentCreateDTO> createStudent(@RequestBody StudentCreateDTO studentCreateDTO) {
-        return ResponseEntity.ok(studentService.add(studentCreateDTO));
+        return ResponseEntity.ok(studentService.createStudent(studentCreateDTO));
     }
 
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable long id) {
-        return ResponseEntity.ok(studentService.delete(id));
+        return ResponseEntity.ok(studentService.deleteStudent(id));
     }
 
     @PatchMapping("update")

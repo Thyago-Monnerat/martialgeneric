@@ -1,6 +1,6 @@
 package com.generic.MartialManager.utils;
 
-import com.generic.MartialManager.Exceptions.InvalidNameFormatException;
+import com.generic.MartialManager.exceptions.InvalidNameFormatException;
 
 public class CheckName {
     public static void nameValidator(String name) {

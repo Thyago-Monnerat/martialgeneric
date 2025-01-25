@@ -1,6 +1,6 @@
 package com.generic.MartialManager.services;
 
-import com.generic.MartialManager.Exceptions.StudentNotFoundException;
+import com.generic.MartialManager.exceptions.StudentNotFoundException;
 import com.generic.MartialManager.dtos.studentDtos.StudentCreateDTO;
 import com.generic.MartialManager.dtos.studentDtos.StudentDTO;
 import com.generic.MartialManager.models.StudentModel;
@@ -19,21 +19,21 @@ public class StudentService {
     private StudentRepository studentRepository;
 
     @Transactional(readOnly = true)
-    public StudentDTO get(long id) {
+    public StudentDTO getStudent(long id) {
         StudentModel student = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Aluno não encontrado!"));
 
         return new StudentDTO(student);
     }
 
     @Transactional(readOnly = true)
-    public List<StudentDTO> getAll() {
+    public List<StudentDTO> getStudents() {
         List<StudentModel> studentList = studentRepository.findAll();
 
         return studentList.stream().map(StudentDTO::new).toList();
     }
 
     @Transactional
-    public StudentCreateDTO add(StudentCreateDTO studentCreateDTO) {
+    public StudentCreateDTO createStudent(StudentCreateDTO studentCreateDTO) {
         nameValidator(studentCreateDTO.name());
 
         studentRepository.save(new StudentModel(studentCreateDTO));
@@ -59,7 +59,7 @@ public class StudentService {
     }
 
     @Transactional
-    public String delete(long id) {
+    public String deleteStudent(long id) {
         StudentModel student = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Aluno não encontrado!"));
 
         studentRepository.delete(student);

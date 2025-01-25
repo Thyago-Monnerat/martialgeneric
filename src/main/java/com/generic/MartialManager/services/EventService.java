@@ -1,6 +1,6 @@
 package com.generic.MartialManager.services;
 
-import com.generic.MartialManager.Exceptions.EventNotFoundException;
+import com.generic.MartialManager.exceptions.EventNotFoundException;
 import com.generic.MartialManager.dtos.eventDtos.EventCreateDTO;
 import com.generic.MartialManager.dtos.eventDtos.EventDTO;
 import com.generic.MartialManager.models.EventModel;
