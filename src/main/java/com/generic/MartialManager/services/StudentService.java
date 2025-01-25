@@ -1,8 +1,8 @@
 package com.generic.MartialManager.services;
 
 import com.generic.MartialManager.Exceptions.StudentNotFoundException;
-import com.generic.MartialManager.dtos.StudentCreateDTO;
-import com.generic.MartialManager.dtos.StudentDTO;
+import com.generic.MartialManager.dtos.studentDtos.StudentCreateDTO;
+import com.generic.MartialManager.dtos.studentDtos.StudentDTO;
 import com.generic.MartialManager.models.StudentModel;
 import com.generic.MartialManager.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;

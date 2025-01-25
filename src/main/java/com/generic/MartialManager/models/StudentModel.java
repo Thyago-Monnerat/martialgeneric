@@ -1,6 +1,6 @@
 package com.generic.MartialManager.models;
 
-import com.generic.MartialManager.dtos.StudentCreateDTO;
+import com.generic.MartialManager.dtos.studentDtos.StudentCreateDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

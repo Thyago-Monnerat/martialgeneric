@@ -1,7 +1,7 @@
 package com.generic.MartialManager.controllers;
 
-import com.generic.MartialManager.dtos.StudentCreateDTO;
-import com.generic.MartialManager.dtos.StudentDTO;
+import com.generic.MartialManager.dtos.studentDtos.StudentCreateDTO;
+import com.generic.MartialManager.dtos.studentDtos.StudentDTO;
 import com.generic.MartialManager.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

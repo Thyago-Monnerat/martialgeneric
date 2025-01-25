@@ -1,7 +1,8 @@
 package com.generic.MartialManager.services;
 
 import com.generic.MartialManager.Exceptions.EventNotFoundException;
-import com.generic.MartialManager.dtos.EventDTO;
+import com.generic.MartialManager.dtos.eventDtos.EventCreateDTO;
+import com.generic.MartialManager.dtos.eventDtos.EventDTO;
 import com.generic.MartialManager.models.EventModel;
 import com.generic.MartialManager.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static com.generic.MartialManager.utils.CheckName.nameValidator;
 
 @Service
 public class EventService {
@@ -30,5 +33,15 @@ public class EventService {
         return list.stream().map(EventDTO::new).toList();
     }
 
+    @Transactional
+    public String createEvent(EventCreateDTO eventCreateDTO){
+        nameValidator(eventCreateDTO.getTitle());
+
+        EventModel event = new EventModel(eventCreateDTO);
+
+        eventRepository.save(event);
+
+        return "Evento: " + event.getTitle() + " salvo com sucesso!";
+    }
 
 }

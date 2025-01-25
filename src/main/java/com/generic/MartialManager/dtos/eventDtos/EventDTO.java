@@ -1,4 +1,4 @@
-package com.generic.MartialManager.dtos;
+package com.generic.MartialManager.dtos.eventDtos;
 
 import com.generic.MartialManager.models.EventModel;
 import lombok.Data;

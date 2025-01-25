@@ -1,4 +1,4 @@
-package com.generic.MartialManager.dtos;
+package com.generic.MartialManager.dtos.studentDtos;
 
 import com.generic.MartialManager.models.StudentModel;
 import lombok.Data;

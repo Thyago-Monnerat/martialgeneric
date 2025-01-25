@@ -1,13 +1,11 @@
 package com.generic.MartialManager.controllers;
 
-import com.generic.MartialManager.dtos.EventDTO;
+import com.generic.MartialManager.dtos.eventDtos.EventCreateDTO;
+import com.generic.MartialManager.dtos.eventDtos.EventDTO;
 import com.generic.MartialManager.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +24,10 @@ public class EventController {
     @GetMapping("getAll")
     public ResponseEntity<List<EventDTO>> getEvents() {
         return ResponseEntity.ok(eventService.getEvents());
+    }
+
+    @PostMapping("create")
+    public ResponseEntity<String> createEvent(@RequestBody EventCreateDTO eventCreateDTO) {
+        return ResponseEntity.ok(eventService.createEvent(eventCreateDTO));
     }
 }
