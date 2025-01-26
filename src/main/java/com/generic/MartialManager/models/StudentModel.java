@@ -1,6 +1,5 @@
 package com.generic.MartialManager.models;
 
-import com.generic.MartialManager.dtos.studentDtos.StudentCreateDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,12 +33,4 @@ public class StudentModel {
 
     private LocalDate initialDate;
 
-    public StudentModel(StudentCreateDTO studentCreateDTO){
-        name = studentCreateDTO.name();
-        age = studentCreateDTO.age();
-        belt = studentCreateDTO.belt();
-        email = studentCreateDTO.email();
-        phoneNumber = studentCreateDTO.phoneNumber();
-        initialDate = studentCreateDTO.initialDate();
-    }
 }

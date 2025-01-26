@@ -3,6 +3,7 @@ package com.generic.MartialManager.services;
 import com.generic.MartialManager.exceptions.DataNotFoundException;
 import com.generic.MartialManager.dtos.studentDtos.StudentCreateDTO;
 import com.generic.MartialManager.dtos.studentDtos.StudentDTO;
+import com.generic.MartialManager.mappers.StudentMapper;
 import com.generic.MartialManager.models.StudentModel;
 import com.generic.MartialManager.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import static com.generic.MartialManager.utils.CheckName.nameValidator;
 public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private StudentMapper studentMapper;
 
     @Transactional(readOnly = true)
     public StudentDTO getStudent(long id) {
@@ -33,12 +37,12 @@ public class StudentService {
     }
 
     @Transactional
-    public StudentCreateDTO createStudent(StudentCreateDTO studentCreateDTO) {
+    public String createStudent(StudentCreateDTO studentCreateDTO) {
         nameValidator(studentCreateDTO.name());
 
-        studentRepository.save(new StudentModel(studentCreateDTO));
+        studentRepository.save(studentMapper.fromCreateDTOtoModel(studentCreateDTO));
 
-        return studentCreateDTO;
+        return "Aluno " + studentCreateDTO.name() + " criado com sucesso!";
     }
 
     @Transactional
