@@ -40,7 +40,7 @@ public class StudentService {
     public String createStudent(StudentCreateDTO studentCreateDTO) {
         nameValidator(studentCreateDTO.name());
 
-        studentRepository.save(studentMapper.fromCreateDTOtoModel(studentCreateDTO));
+        studentRepository.save(studentMapper.fromCreateDtoToModel(studentCreateDTO));
 
         return "Aluno " + studentCreateDTO.name() + " criado com sucesso!";
     }

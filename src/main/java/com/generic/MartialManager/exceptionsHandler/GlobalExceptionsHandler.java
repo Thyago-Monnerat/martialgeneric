@@ -1,6 +1,7 @@
 package com.generic.MartialManager.exceptionsHandler;
 
 import com.generic.MartialManager.exceptions.DataNotFoundException;
+import com.generic.MartialManager.exceptions.DuplicateStudentEventRegistrationException;
 import com.generic.MartialManager.exceptions.InvalidNameFormatException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -52,5 +53,10 @@ public class GlobalExceptionsHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<String> MethodArgumentTypeMismatchException() {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tipo de dado inválido. Verifique sua requisição");
+    }
+
+    @ExceptionHandler(DuplicateStudentEventRegistrationException.class)
+    public ResponseEntity<String> DuplicateStudentEventRegistrationException(DuplicateStudentEventRegistrationException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
     }
 }

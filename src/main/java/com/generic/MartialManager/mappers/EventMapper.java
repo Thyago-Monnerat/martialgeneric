@@ -1,7 +1,9 @@
 package com.generic.MartialManager.mappers;
 
 import com.generic.MartialManager.dtos.eventDtos.EventCreateDTO;
+import com.generic.MartialManager.dtos.eventDtos.EventDTO;
 import com.generic.MartialManager.models.EventModel;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,5 +21,13 @@ public class EventMapper {
 
         return eventModel;
 
+    }
+
+    public EventModel fromDtoToModel(EventDTO eventDTO){
+        EventModel eventModel = new EventModel();
+
+        BeanUtils.copyProperties(eventDTO, eventModel);
+
+        return eventModel;
     }
 }

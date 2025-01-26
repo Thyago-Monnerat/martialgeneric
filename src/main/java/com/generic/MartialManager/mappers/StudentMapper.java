@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentMapper {
 
-    public StudentModel fromCreateDTOtoModel(final StudentCreateDTO studentCreateDTO){
+    public StudentModel fromCreateDtoToModel(final StudentCreateDTO studentCreateDTO){
 
         StudentModel studentModel = new StudentModel();
 
@@ -19,6 +19,14 @@ public class StudentMapper {
         studentModel.setEmail(studentCreateDTO.email());
         studentModel.setPhoneNumber(studentCreateDTO.phoneNumber());
         studentModel.setInitialDate(studentCreateDTO.initialDate());
+
+        return studentModel;
+    }
+
+    public StudentModel fromDTOtoModel(final StudentDTO studentDTO){
+        StudentModel studentModel = new StudentModel();
+
+        BeanUtils.copyProperties(studentDTO, studentModel);
 
         return studentModel;
     }

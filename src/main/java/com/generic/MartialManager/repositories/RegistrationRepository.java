@@ -28,4 +28,6 @@ public interface RegistrationRepository extends JpaRepository<RegistrationModel,
     List<RegistrationProjection> getRegistrationByStudentId(long id);
 
     boolean existsByStudentId(long id);
+
+    boolean existsByStudentIdAndEventId(long studentId, long eventId);
 }
