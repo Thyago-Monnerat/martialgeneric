@@ -2,7 +2,6 @@ package com.generic.MartialManager.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.ManyToOne;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -34,21 +33,4 @@ public class StudentEventModel {
         id.setEvent(eventModel);
     }
 
-}
-
-@Embeddable
-@Data
-class StudentEventPKModel {
-
-    @ManyToOne()
-    private StudentModel student;
-    @ManyToOne()
-    private EventModel event;
-
-    public StudentEventPKModel(){}
-
-    public StudentEventPKModel(StudentModel studentModel, EventModel eventModel){
-        this.student = studentModel;
-        this.event = eventModel;
-    }
 }

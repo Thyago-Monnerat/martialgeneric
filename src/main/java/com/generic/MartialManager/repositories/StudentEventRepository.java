@@ -1,18 +1,19 @@
 package com.generic.MartialManager.repositories;
 
 import com.generic.MartialManager.models.StudentEventModel;
+import com.generic.MartialManager.models.StudentEventPKModel;
+import com.generic.MartialManager.projections.StudentEventProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-public interface StudentEventRepository extends JpaRepository<StudentEventModel, Long> {
-    @Modifying
-    @Query(nativeQuery = true,
-            value = "DELETE FROM tb_student_event WHERE student_id = :id")
-    void deleteByStudentId(long id);
+import java.util.List;
 
-    @Modifying
-    @Query(nativeQuery = true,
-            value = "INSERT INTO tb_student_event (student_id, event_id) VALUES (:student_id, :event_id)")
-    void addStudentEventRelation(long student_id, long event_id);
+public interface StudentEventRepository extends JpaRepository<StudentEventModel, StudentEventPKModel> {
+    @Query(nativeQuery = true, value = """
+            SELECT s.name, e.title
+            FROM tb_student_event se
+            JOIN tb_students s ON s.id = se.student_id
+            JOIN tb_events e ON e.id = se.event_id ORDER BY s.id 
+            """)
+    List<StudentEventProjection> getAllStudentsEvents();
 }
