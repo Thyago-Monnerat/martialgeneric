@@ -1,8 +1,7 @@
 package com.generic.MartialManager.exceptionsHandler;
 
-import com.generic.MartialManager.exceptions.EventNotFoundException;
+import com.generic.MartialManager.exceptions.DataNotFoundException;
 import com.generic.MartialManager.exceptions.InvalidNameFormatException;
-import com.generic.MartialManager.exceptions.StudentNotFoundException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -14,11 +13,6 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 @ControllerAdvice
 public class GlobalExceptionsHandler {
-
-    @ExceptionHandler(StudentNotFoundException.class)
-    public ResponseEntity<String> studentNotFoundException(StudentNotFoundException e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-    }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<String> HttpMessageNotReadableException(HttpMessageNotReadableException e) {
@@ -50,8 +44,8 @@ public class GlobalExceptionsHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("Violação de dados. Verifique os campos informados.");
     }
 
-    @ExceptionHandler(EventNotFoundException.class)
-    public ResponseEntity<String> EventNotFoundException(EventNotFoundException e) {
+    @ExceptionHandler(DataNotFoundException.class)
+    public ResponseEntity<String> EventNotFoundException(DataNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 

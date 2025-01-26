@@ -1,6 +1,6 @@
 package com.generic.MartialManager.services;
 
-import com.generic.MartialManager.exceptions.StudentNotFoundException;
+import com.generic.MartialManager.exceptions.DataNotFoundException;
 import com.generic.MartialManager.dtos.studentDtos.StudentCreateDTO;
 import com.generic.MartialManager.dtos.studentDtos.StudentDTO;
 import com.generic.MartialManager.models.StudentModel;
@@ -20,7 +20,7 @@ public class StudentService {
 
     @Transactional(readOnly = true)
     public StudentDTO getStudent(long id) {
-        StudentModel student = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Aluno não encontrado!"));
+        StudentModel student = studentRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Aluno não encontrado!"));
 
         return new StudentDTO(student);
     }
@@ -44,7 +44,7 @@ public class StudentService {
     @Transactional
     public String updateStudent(StudentDTO studentDTO) {
 
-        StudentModel student = studentRepository.findById(studentDTO.getId()).orElseThrow(() -> new StudentNotFoundException("Aluno não encontrado"));
+        StudentModel student = studentRepository.findById(studentDTO.getId()).orElseThrow(() -> new DataNotFoundException("Aluno não encontrado"));
 
         nameValidator(studentDTO.getName());
 
@@ -59,7 +59,7 @@ public class StudentService {
 
     @Transactional
     public String deleteStudent(long id) {
-        StudentModel student = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Aluno não encontrado!"));
+        StudentModel student = studentRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Aluno não encontrado!"));
 
         studentRepository.delete(student);
 

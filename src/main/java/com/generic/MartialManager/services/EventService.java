@@ -1,6 +1,6 @@
 package com.generic.MartialManager.services;
 
-import com.generic.MartialManager.exceptions.EventNotFoundException;
+import com.generic.MartialManager.exceptions.DataNotFoundException;
 import com.generic.MartialManager.dtos.eventDtos.EventCreateDTO;
 import com.generic.MartialManager.dtos.eventDtos.EventDTO;
 import com.generic.MartialManager.models.EventModel;
@@ -21,7 +21,7 @@ public class EventService {
 
     @Transactional(readOnly = true)
     public EventDTO getEvent(long id) {
-        EventModel eventModel = eventRepository.findById(id).orElseThrow(() -> new EventNotFoundException("Evento não encontrado!"));
+        EventModel eventModel = eventRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Evento não encontrado!"));
 
         return new EventDTO(eventModel);
     }
@@ -48,7 +48,7 @@ public class EventService {
     public String updateEvent(EventDTO eventDTO) {
         nameValidator(eventDTO.getTitle());
 
-        EventModel eventModel = eventRepository.findById(eventDTO.getId()).orElseThrow(() -> new EventNotFoundException("Evento não encontrado!"));
+        EventModel eventModel = eventRepository.findById(eventDTO.getId()).orElseThrow(() -> new DataNotFoundException("Evento não encontrado!"));
 
         eventModel.setTitle(eventDTO.getTitle());
         eventModel.setDescription(eventDTO.getDescription());
@@ -63,7 +63,7 @@ public class EventService {
     @Transactional
     public String deleteEvent(long id) {
 
-        EventModel eventModel = eventRepository.findById(id).orElseThrow(() -> new EventNotFoundException("Evento não encontrado!"));
+        EventModel eventModel = eventRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Evento não encontrado!"));
 
         eventRepository.deleteById(id);
 
