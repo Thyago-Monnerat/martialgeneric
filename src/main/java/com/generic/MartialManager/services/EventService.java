@@ -56,7 +56,19 @@ public class EventService {
         eventModel.setHours(eventDTO.getHours());
         eventModel.setLocal(eventDTO.getLocal());
 
-        return "Evento " + eventModel.getTitle()  + " Salvo com sucesso!";
+        return "Evento " + eventModel.getTitle() + " Salvo com sucesso!";
     }
+
+
+    @Transactional
+    public String deleteEvent(long id) {
+
+        EventModel eventModel = eventRepository.findById(id).orElseThrow(() -> new EventNotFoundException("Evento não encontrado!"));
+
+        eventRepository.deleteById(id);
+
+        return "Evento " + eventModel.getTitle() + " deletado com sucesso!";
+    }
+
 
 }

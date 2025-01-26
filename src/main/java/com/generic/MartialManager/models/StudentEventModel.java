@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.ManyToOne;
-
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 
 @Data
@@ -15,12 +16,14 @@ public class StudentEventModel {
     @EmbeddedId
     private StudentEventPKModel id = new StudentEventPKModel();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "student_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private StudentModel student;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "event_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private EventModel event;
 
     public StudentEventModel() {

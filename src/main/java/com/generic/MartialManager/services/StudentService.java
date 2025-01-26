@@ -48,7 +48,6 @@ public class StudentService {
 
         nameValidator(studentDTO.getName());
 
-        student.setId(studentDTO.getId());
         student.setName(studentDTO.getName());
         student.setAge(studentDTO.getAge());
         student.setEmail(studentDTO.getEmail());
