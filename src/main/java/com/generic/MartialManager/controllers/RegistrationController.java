@@ -1,5 +1,6 @@
 package com.generic.MartialManager.controllers;
 
+import com.generic.MartialManager.dtos.registrationDTO.RegistrationDTO;
 import com.generic.MartialManager.projections.RegistrationProjection;
 import com.generic.MartialManager.services.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,12 @@ public class RegistrationController {
     }
 
     @PostMapping("create")
-    public ResponseEntity<String> createRegistration(@RequestParam long studentId, @RequestParam long eventId) {
-        return ResponseEntity.ok(registrationService.createRegistration(studentId, eventId));
+    public ResponseEntity<String> createRegistration(@RequestBody RegistrationDTO registrationDTO) {
+        return ResponseEntity.ok(registrationService.createRegistration(registrationDTO));
+    }
+
+    @DeleteMapping("delete")
+    public ResponseEntity<String> deleteRegistration(@RequestBody RegistrationDTO registrationDTO) {
+        return ResponseEntity.ok(registrationService.deleteRegistration(registrationDTO));
     }
 }

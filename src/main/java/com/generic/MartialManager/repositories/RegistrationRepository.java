@@ -30,4 +30,6 @@ public interface RegistrationRepository extends JpaRepository<RegistrationModel,
     boolean existsByStudentId(long id);
 
     boolean existsByStudentIdAndEventId(long studentId, long eventId);
+
+    void deleteByStudentIdAndEventId(long studentId, long eventId);
 }

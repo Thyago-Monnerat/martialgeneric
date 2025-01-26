@@ -1,6 +1,7 @@
 package com.generic.MartialManager.services;
 
 import com.generic.MartialManager.dtos.eventDtos.EventDTO;
+import com.generic.MartialManager.dtos.registrationDTO.RegistrationDTO;
 import com.generic.MartialManager.dtos.studentDtos.StudentDTO;
 import com.generic.MartialManager.exceptions.DataNotFoundException;
 import com.generic.MartialManager.exceptions.DuplicateStudentEventRegistrationException;
@@ -45,12 +46,12 @@ public class RegistrationService {
     }
 
     @Transactional
-    public String createRegistration(long studentId, long eventId) {
+    public String createRegistration(RegistrationDTO registrationDTO) {
 
-        StudentDTO studentDTO = studentService.getStudent(studentId);
-        EventDTO eventDTO = (eventService.getEvent(eventId));
+        StudentDTO studentDTO = studentService.getStudent(registrationDTO.studentId());
+        EventDTO eventDTO = (eventService.getEvent(registrationDTO.eventId()));
 
-        if (registrationRepository.existsByStudentIdAndEventId(studentId, eventId)) {
+        if (registrationRepository.existsByStudentIdAndEventId(registrationDTO.studentId(), registrationDTO.eventId())) {
             throw new DuplicateStudentEventRegistrationException("Aluno " + studentDTO.getName() + " já está inscrito no evento " + eventDTO.getTitle());
         }
 
@@ -59,5 +60,21 @@ public class RegistrationService {
         registrationRepository.save(registrationModel);
 
         return "Inscrição do aluno " + studentDTO.getName() + " no evento " + eventDTO.getTitle() + " criada com sucesso!";
+    }
+
+    @Transactional
+    public String deleteRegistration(RegistrationDTO registrationDTO) {
+
+        StudentDTO studentDTO = studentService.getStudent(registrationDTO.studentId());
+        EventDTO eventDTO = (eventService.getEvent(registrationDTO.eventId()));
+
+        if (!registrationRepository.existsByStudentIdAndEventId(registrationDTO.studentId(), registrationDTO.eventId())) {
+            throw new DuplicateStudentEventRegistrationException("Aluno " + studentDTO.getName() + " não está inscrito no evento " + eventDTO.getTitle());
+        }
+
+
+        registrationRepository.deleteByStudentIdAndEventId(registrationDTO.studentId(), registrationDTO.eventId());
+
+        return "Deletado com sucesso!";
     }
 }
