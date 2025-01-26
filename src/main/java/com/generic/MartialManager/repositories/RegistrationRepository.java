@@ -1,19 +1,19 @@
 package com.generic.MartialManager.repositories;
 
-import com.generic.MartialManager.models.StudentEventModel;
-import com.generic.MartialManager.models.StudentEventPKModel;
-import com.generic.MartialManager.projections.StudentEventProjection;
+import com.generic.MartialManager.models.RegistrationModel;
+import com.generic.MartialManager.models.RegistrationPkModel;
+import com.generic.MartialManager.projections.RegistrationProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface StudentEventRepository extends JpaRepository<StudentEventModel, StudentEventPKModel> {
+public interface RegistrationRepository extends JpaRepository<RegistrationModel, RegistrationPkModel> {
     @Query(nativeQuery = true, value = """
             SELECT s.name, e.title
             FROM tb_student_event se
             JOIN tb_students s ON s.id = se.student_id
             JOIN tb_events e ON e.id = se.event_id ORDER BY s.id 
             """)
-    List<StudentEventProjection> getAllStudentsEvents();
+    List<RegistrationProjection> getAllStudentsEvents();
 }

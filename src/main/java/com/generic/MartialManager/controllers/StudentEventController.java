@@ -1,7 +1,7 @@
 package com.generic.MartialManager.controllers;
 
-import com.generic.MartialManager.projections.StudentEventProjection;
-import com.generic.MartialManager.services.StudentEventService;
+import com.generic.MartialManager.projections.RegistrationProjection;
+import com.generic.MartialManager.services.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +13,10 @@ import java.util.List;
 @RequestMapping("studentEvent")
 public class StudentEventController {
     @Autowired
-    private StudentEventService studentService;
+    private RegistrationService registrationService;
 
     @GetMapping("getAll")
-    public List<StudentEventProjection> getAllStudentsEvents(){
-        return studentService.getAllStudentEvent();
+    public List<RegistrationProjection> getAllStudentsEvents(){
+        return registrationService.getAllStudentEvent();
     }
 }

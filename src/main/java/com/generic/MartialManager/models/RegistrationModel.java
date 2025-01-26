@@ -3,17 +3,19 @@ package com.generic.MartialManager.models;
 import jakarta.persistence.*;
 import lombok.Data;
 import jakarta.persistence.ManyToOne;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 
 @Data
+@NoArgsConstructor
 @Entity
-@Table(name = "tb_student_event")
-public class StudentEventModel {
+@Table(name = "tb_registration ")
+public class RegistrationModel {
 
     @EmbeddedId
-    private StudentEventPKModel id = new StudentEventPKModel();
+    private RegistrationPkModel  id = new RegistrationPkModel();
 
     @ManyToOne()
     @JoinColumn(name = "student_id", referencedColumnName = "id", insertable = false, updatable = false)
@@ -25,10 +27,7 @@ public class StudentEventModel {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private EventModel event;
 
-    public StudentEventModel() {
-    }
-
-    public StudentEventModel(StudentModel studentModel, EventModel eventModel) {
+    public RegistrationModel(StudentModel studentModel, EventModel eventModel) {
         id.setStudent(studentModel);
         id.setEvent(eventModel);
     }
