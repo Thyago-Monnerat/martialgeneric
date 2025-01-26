@@ -9,23 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentMapper {
 
-    public StudentModel fromDTOtoModel(final StudentDTO studentDTO) {
-
-        StudentModel studentModel = new StudentModel();
-
-        BeanUtils.copyProperties(studentDTO, studentModel);
-
-        return studentModel;
-    }
-
-    public StudentDTO fromModelToDTO(final StudentModel studentModel) {
-        StudentDTO studentDTO = new StudentDTO();
-
-        BeanUtils.copyProperties(studentModel, studentDTO);
-
-        return studentDTO;
-    }
-
     public StudentModel fromCreateDTOtoModel(final StudentCreateDTO studentCreateDTO){
 
         StudentModel studentModel = new StudentModel();

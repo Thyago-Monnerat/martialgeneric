@@ -1,10 +1,8 @@
 package com.generic.MartialManager.models;
 
-import com.generic.MartialManager.dtos.eventDtos.EventCreateDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -32,8 +30,4 @@ public class EventModel {
 
     @Column(nullable = false)
     private LocalTime hours;
-
-    public EventModel(EventCreateDTO eventCreateDTO) {
-        BeanUtils.copyProperties(eventCreateDTO, this);
-    }
 }

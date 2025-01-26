@@ -3,6 +3,7 @@ package com.generic.MartialManager.services;
 import com.generic.MartialManager.exceptions.DataNotFoundException;
 import com.generic.MartialManager.dtos.eventDtos.EventCreateDTO;
 import com.generic.MartialManager.dtos.eventDtos.EventDTO;
+import com.generic.MartialManager.mappers.EventMapper;
 import com.generic.MartialManager.models.EventModel;
 import com.generic.MartialManager.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class EventService {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private EventMapper eventMapper;
 
     @Transactional(readOnly = true)
     public EventDTO getEvent(long id) {
@@ -37,11 +41,9 @@ public class EventService {
     public String createEvent(EventCreateDTO eventCreateDTO) {
         nameValidator(eventCreateDTO.getTitle());
 
-        EventModel event = new EventModel(eventCreateDTO);
+        eventRepository.save(eventMapper.fromCreateDtoToModel(eventCreateDTO));
 
-        eventRepository.save(event);
-
-        return "Evento: " + event.getTitle() + " salvo com sucesso!";
+        return "Evento: " + eventCreateDTO.getTitle() + " salvo com sucesso!";
     }
 
     @Transactional
