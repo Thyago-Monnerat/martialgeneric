@@ -16,12 +16,12 @@ public class RegistrationController {
     private RegistrationService registrationService;
 
     @GetMapping("getAll")
-    public ResponseEntity<List<RegistrationProjection>> getAllStudentsEvents() {
+    public ResponseEntity<List<RegistrationProjection>> getAllRegistration() {
         return ResponseEntity.ok(registrationService.getAllRegistration());
     }
 
-    @GetMapping("get/{id}")
-    public ResponseEntity<List<RegistrationProjection>> getAllStudentsEvents(@PathVariable long id) {
+    @GetMapping("get/user/{id}")
+    public ResponseEntity<List<RegistrationProjection>> getRegistrationByUserId(@PathVariable long id) {
         return ResponseEntity.ok(registrationService.getRegistration(id));
     }
 
