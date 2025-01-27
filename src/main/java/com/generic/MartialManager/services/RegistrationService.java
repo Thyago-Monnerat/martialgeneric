@@ -75,6 +75,6 @@ public class RegistrationService {
 
         registrationRepository.deleteByStudentIdAndEventId(registrationDTO.studentId(), registrationDTO.eventId());
 
-        return "Deletado com sucesso!";
+        return "Inscrição do aluno " + studentDTO.getName() + " no evento " + eventDTO.getTitle() + " cancelada com sucesso!";
     }
 }

@@ -37,9 +37,9 @@ public class StudentController {
         return ResponseEntity.ok(studentService.deleteStudent(id));
     }
 
-    @PatchMapping("update")
-    public ResponseEntity<String> updateStudent(@RequestBody StudentDTO studentDTO) {
-        return ResponseEntity.ok(studentService.updateStudent(studentDTO));
+    @PatchMapping("update/{studentId}")
+    public ResponseEntity<String> updateStudent(@PathVariable long studentId, @RequestBody StudentCreateDTO studentCreateDTO) {
+        return ResponseEntity.ok(studentService.updateStudent(studentId, studentCreateDTO));
     }
 
 }

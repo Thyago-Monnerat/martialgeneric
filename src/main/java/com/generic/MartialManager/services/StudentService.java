@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.generic.MartialManager.utils.CheckName.nameValidator;
+import static com.generic.MartialManager.utils.ValidatorUtil.hasEspecialChar;
 
 @Service
 public class StudentService {
@@ -38,7 +38,7 @@ public class StudentService {
 
     @Transactional
     public String createStudent(StudentCreateDTO studentCreateDTO) {
-        nameValidator(studentCreateDTO.name());
+        hasEspecialChar(studentCreateDTO.name());
 
         studentRepository.save(studentMapper.fromCreateDtoToModel(studentCreateDTO));
 
@@ -46,17 +46,17 @@ public class StudentService {
     }
 
     @Transactional
-    public String updateStudent(StudentDTO studentDTO) {
+    public String updateStudent(long id, StudentCreateDTO studentCreateDTO) {
 
-        StudentModel student = studentRepository.findById(studentDTO.getId()).orElseThrow(() -> new DataNotFoundException("Aluno não encontrado"));
+        StudentModel student = studentRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Aluno não encontrado"));
 
-        nameValidator(studentDTO.getName());
+        hasEspecialChar(studentCreateDTO.name());
 
-        student.setName(studentDTO.getName());
-        student.setAge(studentDTO.getAge());
-        student.setEmail(studentDTO.getEmail());
-        student.setPhoneNumber(studentDTO.getPhoneNumber());
-        student.setInitialDate(studentDTO.getInitialDate());
+        student.setName(studentCreateDTO.name());
+        student.setAge(studentCreateDTO.age());
+        student.setEmail(studentCreateDTO.email());
+        student.setPhoneNumber(studentCreateDTO.phoneNumber());
+        student.setInitialDate(studentCreateDTO.initialDate());
 
         return "Aluno " + student.getName() + " atualizado!";
     }

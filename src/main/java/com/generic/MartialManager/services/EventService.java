@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.generic.MartialManager.utils.CheckName.nameValidator;
+import static com.generic.MartialManager.utils.ValidatorUtil.hasEspecialChar;
 
 @Service
 public class EventService {
@@ -39,7 +39,7 @@ public class EventService {
 
     @Transactional
     public String createEvent(EventCreateDTO eventCreateDTO) {
-        nameValidator(eventCreateDTO.getTitle());
+        hasEspecialChar(eventCreateDTO.getTitle());
 
         eventRepository.save(eventMapper.fromCreateDtoToModel(eventCreateDTO));
 
@@ -48,7 +48,7 @@ public class EventService {
 
     @Transactional
     public String updateEvent(EventDTO eventDTO) {
-        nameValidator(eventDTO.getTitle());
+        hasEspecialChar(eventDTO.getTitle());
 
         EventModel eventModel = eventRepository.findById(eventDTO.getId()).orElseThrow(() -> new DataNotFoundException("Evento não encontrado!"));
 
